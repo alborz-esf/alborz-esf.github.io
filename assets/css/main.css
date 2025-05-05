@@ -775,6 +775,30 @@ section,
   border: 2px solid var(--accent-color);
 }
 
+@media (max-width: 768px) {
+  .resume .row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .resume .col-lg-6 {
+    display: contents; /* so all .resume-section divs are direct children of .row */
+  }
+
+  .resume .resume-section {
+    order: 0; /* default */
+  }
+
+  /* Small screen stacking order */
+  .resume .resume-section[data-order="1"] { order: 1; } /* Education */
+  .resume .resume-section[data-order="2"] { order: 2; } /* Research */
+  .resume .resume-section[data-order="3"] { order: 3; } /* Publications */
+  .resume .resume-section[data-order="4"] { order: 4; } /* Teaching */
+  .resume .resume-section[data-order="5"] { order: 5; } /* Grants */
+  .resume .resume-section[data-order="6"] { order: 6; } /* Additional Projects */
+  .resume .resume-section[data-order="7"] { order: 7; } /* Presentations */
+}
+
 /*--------------------------------------------------------------
 # Portfolio Section
 --------------------------------------------------------------*/
