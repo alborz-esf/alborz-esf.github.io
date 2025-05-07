@@ -785,6 +785,8 @@ section,
 
   .resume .col-lg-6 {
     display: contents; /* so all .resume-section divs are direct children of .row */
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .resume .resume-section {
