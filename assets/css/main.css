@@ -591,6 +591,11 @@ section,
   .hero p {
     font-size: 20px;
   }
+  .hero .btn-get-started {
+    position: relative;
+    left: 44.5%;
+    top:20%;
+    }
 }
 
 /*--------------------------------------------------------------
