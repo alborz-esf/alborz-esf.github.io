@@ -1545,4 +1545,24 @@ section,
   color: #fff;
 }
 
+.php-email-form .loading {
+  color: #0d6efd; /* Bootstrap blue */
+  font-weight: 500;
+}
+
+.php-email-form .sent-message {
+  color: #198754; /* Bootstrap success green */
+  background: #e9f7ef;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.php-email-form .error-message {
+  color: #dc3545; /* Bootstrap danger red */
+  background: #f8d7da;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
 
