@@ -1,51 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector(".php-email-form");
   if (!form) return;
-
-  const button = form.querySelector("button[type='submit']");
-
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const loading = form.querySelector(".loading");
-    const errorMessage = form.querySelector(".error-message");
-    const sentMessage = form.querySelector(".sent-message");
-
-    // Reset UI
-    loading.style.display = "block";
-    errorMessage.style.display = "none";
-    sentMessage.style.display = "none";
-    errorMessage.textContent = "";
-
-    // Prevent multiple submissions
-    button.disabled = true;
-
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: {
-          "Accept": "application/json"
-        }
-      });
-
-      const data = await response.json();
-      loading.style.display = "none";
-
-      if (data.ok) {
-        sentMessage.style.display = "block";
-        form.reset();
-      } else {
-        throw new Error("Submission failed");
+  
+  async function handleSubmit(event) {
+    event.preventDefault();
+    var status = document.getElementById("my-form-status");
+    var data = new FormData(event.target);
+    fetch(event.target.action, {
+      method: form.method,
+      body: data,
+      headers: {
+          'Accept': 'application/json'
       }
-
-    } catch (error) {
-      loading.style.display = "none";
-      errorMessage.textContent = "Something went wrong. Please try again.";
-      errorMessage.style.display = "block";
-      button.disabled = false; // allow retry
-    }
-  });
+    }).then(response => {
+      if (response.ok) {
+        status.innerHTML = "Thanks for your submission!";
+        form.reset()
+      } else {
+        response.json().then(data => {
+          if (Object.hasOwn(data, 'errors')) {
+            status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+          } else {
+            status.innerHTML = "Oops! There was a problem submitting your form"
+          }
+        })
+      }
+    }).catch(error => {
+      status.innerHTML = "Oops! There was a problem submitting your form"
+    });
+  }
+  form.addEventListener("submit", handleSubmit)
 });
