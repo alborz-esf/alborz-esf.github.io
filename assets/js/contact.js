@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector(".php-email-form");
   if (!form) return;
 
+  const button = form.querySelector("button[type='submit']");
+
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
@@ -14,6 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
     errorMessage.style.display = "none";
     sentMessage.style.display = "none";
     errorMessage.textContent = "";
+
+    // Prevent multiple submissions
+    button.disabled = true;
 
     const formData = new FormData(form);
 
@@ -33,14 +38,14 @@ document.addEventListener("DOMContentLoaded", function () {
         sentMessage.style.display = "block";
         form.reset();
       } else {
-        errorMessage.textContent = "Submission failed. Please try again.";
-        errorMessage.style.display = "block";
+        throw new Error("Submission failed");
       }
 
     } catch (error) {
       loading.style.display = "none";
-      errorMessage.textContent = "Network error. Please try again later.";
+      errorMessage.textContent = "Something went wrong. Please try again.";
       errorMessage.style.display = "block";
+      button.disabled = false; // allow retry
     }
   });
 });
