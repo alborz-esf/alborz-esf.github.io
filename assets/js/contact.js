@@ -9,9 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const errorMessage = form.querySelector(".error-message");
     const sentMessage = form.querySelector(".sent-message");
 
+    // Reset UI
     loading.style.display = "block";
     errorMessage.style.display = "none";
     sentMessage.style.display = "none";
+    errorMessage.textContent = "";
 
     const formData = new FormData(form);
 
@@ -24,15 +26,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
+      const data = await response.json();
       loading.style.display = "none";
 
-      if (response.ok) {
+      if (data.ok) {
         sentMessage.style.display = "block";
         form.reset();
       } else {
-        errorMessage.textContent = "Something went wrong. Please try again.";
+        errorMessage.textContent = "Submission failed. Please try again.";
         errorMessage.style.display = "block";
       }
+
     } catch (error) {
       loading.style.display = "none";
       errorMessage.textContent = "Network error. Please try again later.";
