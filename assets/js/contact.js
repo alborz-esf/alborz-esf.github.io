@@ -15,17 +15,15 @@ document.addEventListener("DOMContentLoaded", function () {
           'Accept': 'application/json'
       }
     }).then(response => {
+      loading.style.display = "none";
       if (response.ok) {
-        loading.style.display = "none";
         status.innerHTML = "Thanks for your submission!";
         form.reset()
       } else {
         response.json().then(data => {
           if (Object.hasOwn(data, 'errors')) {
-            loading.style.display = "none";
             status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
           } else {
-            loading.style.display = "none";
             status.innerHTML = "Oops! There was a problem submitting your form"
           }
         })
