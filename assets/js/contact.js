@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector(".php-email-form");
+  const form = document.querySelector("my-form");
   if (!form) return;
   
   async function handleSubmit(event) {
