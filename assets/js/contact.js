@@ -4,10 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
   
   async function handleSubmit(event) {
     event.preventDefault();
-    const loading = form.querySelector(".loading");
     var status = document.getElementById("my-form-status");
     var data = new FormData(event.target);
-    loading.style.display = "block";
     fetch(event.target.action, {
       method: form.method,
       body: data,
@@ -15,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
           'Accept': 'application/json'
       }
     }).then(response => {
-      loading.style.display = "none";
       if (response.ok) {
         status.innerHTML = "Thanks for your submission!";
         form.reset()
@@ -29,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
       }
     }).catch(error => {
-      loading.style.display = "none";
       status.innerHTML = "Oops! There was a problem submitting your form"
     });
   }
